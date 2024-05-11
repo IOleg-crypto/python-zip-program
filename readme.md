@@ -17,13 +17,15 @@ This is a Python program that provides functionalities for zipping and unzipping
 
 1. Clone the repository:
 
-   ```bash
+- HTTPS
 
-   git clone git@github.com:IOleg-crypto/python-zip-program.git
-   ```
+```bash
 
-   ## Or
+  git clone git@github.com:IOleg-crypto/python-zip-program.git
+```
 
-   ```bash
-   git clone https://github.com/IOleg-crypto/python-zip-program.git
-   ```
+- SSH key
+
+```bash
+  git clone https://github.com/IOleg-crypto/python-zip-program.git
+```

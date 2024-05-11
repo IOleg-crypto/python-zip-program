@@ -53,8 +53,7 @@ class FileZipperApp:
             self.extract_zip_button.config(state=tk.NORMAL)
 
     def extract_zip(self):
-        filepath = filedialog.askopenfilename()
-        if filepath:
+        if self.zip_file_path:
             extract_dir = filedialog.askdirectory()
             if extract_dir:
                 with zipfile.ZipFile(self.zip_file_path, 'r') as zip_ref:
