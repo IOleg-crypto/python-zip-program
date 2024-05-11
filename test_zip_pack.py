@@ -3,20 +3,68 @@ from tkinter import filedialog
 import zipfile
 import os
 
-def pack_directory():
-    directory_path = filedialog.askdirectory(title="Select Directory to Pack")
-    if directory_path:
-        zip_file_name = os.path.basename(directory_path) + ".zip"
-        with zipfile.ZipFile(zip_file_name, 'w') as zipf:
-            for root, dirs, files in os.walk(directory_path):
-                for file in files:
-                    zipf.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), directory_path))
-        print("Directory packed successfully.")
+class FileZipperApp:
+    def __init__(self, master):
+        self.master = master
+        master.title("File Zipper")
+        master.geometry("400x300")
 
-root = tk.Tk()
-root.title("Zip Packer")
+        self.file_path = None
+        self.zip_file_path = None
 
-button = tk.Button(root, text="Select Directory", command=pack_directory)
-button.pack(pady=20)
+        self.choose_file_button = tk.Button(master, text="Choose File", command=self.choose_file)
+        self.choose_file_button.pack(pady=10)
 
-root.mainloop()
+        self.file_path_label = tk.Label(master, text="")
+        self.file_path_label.pack()
+
+        self.create_zip_button = tk.Button(master, text="Create Zip", command=self.create_zip, state=tk.DISABLED)
+        self.create_zip_button.pack(pady=5)
+
+        self.zip_created_label = tk.Label(master, text="")
+        self.zip_created_label.pack()
+
+        self.extract_zip_button = tk.Button(master, text="Extract Zip", command=self.extract_zip, state=tk.NORMAL)
+        self.extract_zip_button.pack(pady=5)
+        
+        #self.extract_zip_button_2 = tk.Button(master, text="Extract Zip", command=self.extract_zip_file)
+       # self.extract_zip_button.pack(pady = 0)
+       # self.extract_zip_button_2.pack()
+        
+        
+
+        self.extraction_label = tk.Label(master, text="")
+        self.extraction_label.pack()
+
+    def choose_file(self):
+        file_path = filedialog.askopenfilename()
+        if file_path:
+            self.file_path = file_path
+            self.file_path_label.config(text="Chosen file: " + self.file_path)
+            self.create_zip_button.config(state=tk.NORMAL)
+
+    def create_zip(self):
+        if self.file_path:
+            zip_file_path = self.file_path + ".zip"
+            with zipfile.ZipFile(zip_file_path, 'w') as zipf:
+                zipf.write(self.file_path, os.path.basename(self.file_path))
+            self.zip_file_path = zip_file_path
+            self.zip_created_label.config(text="Zip file created: " + self.zip_file_path)
+            self.extract_zip_button.config(state=tk.NORMAL)
+
+    def extract_zip(self):
+        filepath = filedialog.askopenfilename()
+        if filepath:
+            extract_dir = filedialog.askdirectory()
+            if extract_dir:
+                with zipfile.ZipFile(self.zip_file_path, 'r') as zip_ref:
+                    zip_ref.extractall(extract_dir)
+                self.extraction_label.config(text="Zip file extracted to: " + extract_dir)
+                
+def main():
+    root = tk.Tk()
+    app = FileZipperApp(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
