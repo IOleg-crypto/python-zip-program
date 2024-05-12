@@ -9,13 +9,13 @@ from zipfile import ZipFile
 def create_zip(zipFileName):
    destination_directory = filedialog.askdirectory(title="Choose directory to save zip")
    if not destination_directory:
-        print("No directory selected.")
+        mb.showinfo("Info","No directory selected.")
         return
 
     # Ask the user to choose files to include in the zip file
    filenames = filedialog.askopenfilenames(title="Choose files to include in zip")
    if not filenames:
-        print("No files selected.")
+        mb.showinfo("Info","No files selected.")
         return
 
     # Create the zip file in the chosen directory
@@ -25,20 +25,8 @@ def create_zip(zipFileName):
             arcname = os.path.relpath(filename, destination_directory)
             arcname = arcname.replace(os.path.sep, '/')  # Replace backslashes with forward slashes
             archive.write(filename, arcname=arcname)
-   print(f"Zip file '{zip_name}' created successfully.")
+   mb.showinfo("Info", f"Zip file '{zip_name}' created successfully.")
 
-"""""
-def create_zip(zip_name):
-    mb.askyesnocancel("Do you want to create zip?", "Choose create zip from files or directory(Yes - files, No - directory)")
-    if mb.askyesno:
-       destination_directory = filedialog.askdirectory(title="Choose directory to save zip")
-       filenames = filedialog.askopenfilenames(title="Choose files to zip")
-       with zipfile.ZipFile(zip_name, mode="w") as archive:
-        for filename in filenames:
-           archive.write(filename)
-    else:
-       print("Debug condition")
-"""""   
                
 def extract_zip():
     file_name = filedialog.askopenfilename(title="Choose zip file to extract")
