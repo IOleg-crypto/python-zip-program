@@ -49,7 +49,7 @@ def extract_zip():
 def main():
     #parent window
     main_window = Tk()
-    main_window.title("Zip packer && extractor")
+    main_window.title("File archiver")
     main_window.call('tk' , 'scaling' , 1.5)
     main_window.geometry("500x150")
     #main functionality
@@ -66,7 +66,7 @@ def main():
     textbox.pack()
     textbox.place(x = 150 , y = 50, width = 300 , height = 30)
     #label
-    labelText = Label(main_window , text = "Enter the name for zip file")
+    labelText = Label(main_window , text = "Enter the name for zip file(*.format)")
     labelText.pack()
   
 
