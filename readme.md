@@ -47,9 +47,15 @@ This is a Python program that provides functionalities for zipping and unzipping
 cd python-zip-program
 ```
 
-- Launch
+## Running the Program
 
-```python
+To run the program, follow these steps:
+
+### 1. Running the Zip Program with Tkinter Debug Mode
+
+```bash
 python3 zip_program_tkinter_debug.py
 python3 zip_pack.py
 ```
+
+Feel free to adjust the instructions or formatting as needed for project.
