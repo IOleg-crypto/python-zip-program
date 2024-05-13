@@ -14,26 +14,34 @@ import lzma
 import bz2
 
 def create_zip(zipFileName):
+
+   #return compression_type in (zipfile.ZIP_DEFLATED, zipfile.ZIP_BZIP2, zipfile.ZIP_LZMA)
    destination_directory = filedialog.askdirectory(title="Choose directory to save *.format")
    if not destination_directory:
         mb.showinfo("Info","No directory selected.")
         return
 
+    
     # Ask the user to choose files to include in the zip file
    filenames = filedialog.askopenfilenames(title="Choose files to include in *.format")
    if not filenames:
         mb.showinfo("Info","No files selected.")
         return
         
-   answer = sd.askstring("Input", "Choose compression type(zipfile.ZIP_DEFLATED , zipfile.ZIP_BZIP2 , zipfile.ZIP_LZMA)", parent=None)
+  # return zipFileName in (zipfile.ZIP_DEFLATED, zipfile.ZIP_BZIP2, zipfile.ZIP_LZMA)
+
+   answer = sd.askstring("Input", "Choose compression type (ZIP_DEFLATED, ZIP_BZIP2, ZIP_LZMA):", parent=None)
    if not answer:
-      mb.showinfo("Info", "No compression type selected.")
-   if answer:
-      mb.showinfo("Info", f"Compression type: {answer}")
-                                
+     mb.showinfo("Info", "No compression type selected.")
+     return
+   else:
+       compression_type = getattr(zipfile, answer)
+   #if is_supported_compression(compression_type):
+       mb.showinfo("Info", f"Compression type: {answer}")
+                          
     # Create the zip file in the chosen directory
    zip_name = os.path.join(destination_directory, zipFileName)
-   with zipfile.ZipFile(zip_name, mode="w" , compression=zipfile.ZIP_DEFLATED) as archive:
+   with zipfile.ZipFile(zip_name, mode="w" , compression= compression_type) as archive:
         for filename in filenames:
             arcname = os.path.relpath(filename, destination_directory)
             arcname = arcname.replace(os.path.sep, '/')  # Replace backslashes with forward slashes
@@ -61,6 +69,7 @@ def extract_zip():
 
 def main():
     #parent window
+    compression_type = ()
     main_window = Tk()
     main_window.title("File archiver")
     main_window.call('tk' , 'scaling' , 2)
@@ -69,7 +78,7 @@ def main():
     button_createZip_launch = Button(main_window, text="Create ZIP")
     button_createZip_launch.pack()
     button_createZip_launch.place(x = 20 , y = 20 , width = 100 , height = 30)
-    button_createZip_launch.bind("<Button-1>", lambda event: create_zip(textbox.get(1.0, "end-1c")))
+    button_createZip_launch.bind("<Button-1>", lambda event: create_zip(textbox.get(1.0, "end-1c")) , compression_type)
     #buttons
     button_extractZip = Button(main_window , text = "Extract zip")
     button_extractZip.pack()
