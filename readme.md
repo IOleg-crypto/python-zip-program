@@ -51,8 +51,6 @@ cd python-zip-program
 
 To run the program, follow these steps:
 
-### 1. Running the Zip Program with Tkinter Debug Mode
-
 ```bash
 python3 zip_program_tkinter_debug.py
 python3 zip_pack.py
