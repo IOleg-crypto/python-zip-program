@@ -63,4 +63,4 @@ python3 zip_program_tkinter_debug.py
 python3 zip_pack.py
 ```
 
-Feel free to adjust the instructions or formatting as needed for project.
+Feel free to following the instructions
