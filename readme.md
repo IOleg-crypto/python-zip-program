@@ -51,8 +51,15 @@ cd python-zip-program
 
 To run the program, follow these steps:
 
+- You should run this file
+
 ```bash
 python3 zip_program_tkinter_debug.py
+```
+
+- Unnecessary(project not finished)
+
+```bash
 python3 zip_pack.py
 ```
 
